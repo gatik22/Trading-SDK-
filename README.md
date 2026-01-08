@@ -44,12 +44,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Run the Application
-
-```bash
-python main.py
-```
-
-Or using uvicorn directly:
+using uvicorn directly:
 
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
@@ -215,7 +210,7 @@ curl -X POST "http://localhost:8000/api/v1/orders" \
 1. **Authentication**: Single hardcoded user (no authentication required)
 2. **Order Execution**: All MARKET orders execute immediately at last traded price
 3. **Limit Orders**: Execute immediately at specified limit price (simplified)
-4. **Portfolio**: Calculated using FIFO (First In First Out) method
+4. **Portfolio**: Calculated using weighted average price
 5. **Market Hours**: Trading allowed 24/7 (no market hours restriction)
 6. **Instrument Prices**: Static prices (not connected to real market data)
 7. **Order Validation**: Basic validations only (quantity > 0, valid symbol, sufficient holdings for SELL)
@@ -223,14 +218,15 @@ curl -X POST "http://localhost:8000/api/v1/orders" \
 
 ## Project Structure
 
-```
+```md
 trading-sdk/
-├── main.py              # Main FastAPI application
-├── requirements.txt     # Python dependencies
-├── README.md           # This file
+├── main.py        # FastAPI routes & app setup
+├── models.py      # Pydantic models & enums
+├── storage.py     # In-memory datastore & execution logic
+├── requirements.txt
+├── README.md
 └── .gitignore
 ```
-
 ##  Technical Stack
 
 - **Framework**: FastAPI 0.104.1
@@ -249,7 +245,6 @@ trading-sdk/
 - `LIMIT` - Execute at specified price or better
 
 ### Order Status
-- `NEW` - Order created
 - `PLACED` - Order placed in system
 - `EXECUTED` - Order successfully executed
 - `CANCELLED` - Order cancelled
@@ -295,10 +290,7 @@ Clean code with type hints
 Comprehensive validation  
 
 ##  Author
-Name-Gatik kaushik 
+**Name**: Gatik Kaushik
 Email-gatikkaushik@gmail.com
 github-gatik22
 
-
-
-**Note**: This is a simulation system and should not be used for actual trading. No real market connectivity is implemented.
